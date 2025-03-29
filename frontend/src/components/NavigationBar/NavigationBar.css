@@ -1,0 +1,172 @@
+.navigation-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--ec-color-bg3);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .navigation-bar-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navigation-bar-logo {
+    height: 40px;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 0 8px rgba(33, 147, 170, 0.3));
+  }
+  
+  .navigation-bar-logo:hover {
+    transform: scale(1.05);
+  }
+  
+  .navigation-bar-right {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+  
+  .navigation-bar-link {
+    color: var(--ec-color-light1);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .navigation-bar-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--ec-color-blue3);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+    opacity: 0;
+  }
+  
+  .navigation-bar-link:hover {
+    color: white;
+  }
+  
+  .navigation-bar-link:hover::before {
+    width: 80%;
+    opacity: 1;
+  }
+  
+  .navigation-bar-link:active {
+    transform: translateY(1px);
+  }
+  
+  /* Active link styling */
+  .navigation-bar-link.active {
+    color: white;
+    background: rgba(33, 147, 170, 0.1);
+  }
+  
+  .navigation-bar-link.active::before {
+    width: 80%;
+    opacity: 1;
+  }
+  
+  /* Add a special button style for the last link (Mi perfil) */
+  .navigation-bar-right .navigation-bar-link:last-child {
+    background: linear-gradient(to right, var(--ec-color-blue3), var(--ec-color-blue1));
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(33, 147, 170, 0.3);
+  }
+  
+  .navigation-bar-right .navigation-bar-link:last-child::before {
+    display: none;
+  }
+  
+  .navigation-bar-right .navigation-bar-link:last-child:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(33, 147, 170, 0.4);
+  }
+  
+  .navigation-bar-right .navigation-bar-link:last-child:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgba(33, 147, 170, 0.3);
+  }
+  
+  /* Mobile menu button (add to your JSX if needed) */
+  .navigation-bar-menu-button {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--ec-color-light1);
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .navigation-bar {
+      padding: 1rem;
+    }
+    
+    .navigation-bar-right {
+      gap: 1rem;
+    }
+    
+    .navigation-bar-link {
+      font-size: 0.85rem;
+      padding: 0.4rem 0.6rem;
+    }
+    
+    .navigation-bar-right .navigation-bar-link:last-child {
+      padding: 0.4rem 1rem;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .navigation-bar-menu-button {
+      display: block;
+    }
+    
+    .navigation-bar-right {
+      position: fixed;
+      top: 70px;
+      right: -100%;
+      flex-direction: column;
+      background: var(--ec-color-bg5);
+      width: 70%;
+      height: calc(100vh - 70px);
+      padding: 2rem;
+      gap: 1.5rem;
+      transition: right 0.3s ease;
+      box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2);
+      align-items: flex-start;
+    }
+    
+    .navigation-bar-right.active {
+      right: 0;
+    }
+    
+    .navigation-bar-link {
+      width: 100%;
+    }
+    
+    .navigation-bar-right .navigation-bar-link:last-child {
+      width: calc(100% - 2.5rem);
+      text-align: center;
+      margin-top: 1rem;
+    }
+  }

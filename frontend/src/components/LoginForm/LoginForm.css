@@ -1,0 +1,205 @@
+.login-form {
+    width: 20vw;
+    min-width: 420px;
+    height: 100%;
+    background: var(--ec-color-bg3);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+  
+  .login-form-logo {
+    width: 180px;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    transition: transform 0.3s ease;
+  }
+  
+  .login-form-logo:hover {
+    transform: scale(1.05);
+  }
+  
+  .login-form-title {
+    width: 100%;
+    font-weight: 600;
+    text-align: center;
+    font-size: 2.2rem;
+    margin: 1rem 0;
+    color: var(--ec-color-light1);
+    margin-top: 30px;
+    letter-spacing: -0.5px;
+  }
+  
+  .login-form-form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    margin-top: 1rem;
+  }
+  
+  .login-form-label {
+    width: 100%;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    color: var(--ec-color-light1);
+    font-weight: 500;
+    padding: 0px 68px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  
+  .login-form-input {
+    width: 60%;
+    height: 20px;
+    font-weight: 500;
+    border-radius: 8px;
+    border: 1px solid rgba(51, 51, 51, 0.1);
+    padding: 12px 16px;
+    background: rgba(245, 245, 245, 0.9);
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .login-form-input:focus {
+    outline: none;
+    border-color: var(--ec-color-blue3);
+    box-shadow: 0 0 0 3px rgba(var(--ec-color-blue3-rgb, 0, 120, 255), 0.2);
+    background: white;
+  }
+  
+  .login-form-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  
+  .login-form-button {
+    padding: 12px 32px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    background: var(--ec-color-blue3);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(var(--ec-color-blue3-rgb, 0, 120, 255), 0.3);
+    letter-spacing: 0.5px;
+  }
+  
+  .login-form-button:hover {
+    background: var(--ec-color-blue1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(var(--ec-color-blue1-rgb, 0, 100, 220), 0.4);
+  }
+  
+  .login-form-button:active {
+    transform: translateY(1px);
+  }
+  
+  .login-form-have-account {
+    width: 100%;
+    text-align: center;
+    color: var(--ec-color-light1);
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+  
+  .login-form-have-account-link {
+    color: var(--ec-color-blue3);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  
+  .login-form-have-account-link:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--ec-color-blue1);
+    transition: width 0.3s ease;
+  }
+  
+  .login-form-have-account-link:hover {
+    color: var(--ec-color-blue1);
+  }
+  
+  .login-form-have-account-link:hover:after {
+    width: 100%;
+  }
+  
+  .login-form-or-text {
+    width: 100%;
+    text-align: center;
+    color: var(--ec-color-light1);
+    font-weight: 500;
+    margin-top: 1.5rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+  }
+  
+  .login-form-or-text:before,
+  .login-form-or-text:after {
+    content: "";
+    height: 1px;
+    background-color: rgba(var(--ec-color-light1-rgb, 200, 200, 200), 0.3);
+    flex-grow: 1;
+    margin: 0 12px;
+  }
+  
+  /* Add a Google button styling */
+  .login-form-google-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 1rem;
+    padding: 10px 20px;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .login-form-google-button:hover {
+    background: #f8f8f8;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Add responsive adjustments */
+  @media (max-width: 480px) {
+    .login-form {
+      min-width: 90%;
+      padding: 1.5rem;
+    }
+    
+    .login-form-input {
+      width: 80%;
+    }
+    
+    .login-form-label {
+      padding: 0 40px;
+    }
+  }

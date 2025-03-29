@@ -1,0 +1,140 @@
+.home-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--ec-color-bg5);
+    color: var(--ec-color-light1);
+    position: relative;
+  }
+  
+  /* Add a subtle background pattern */
+  .home-page::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(to bottom, rgba(28, 31, 43, 0.8), rgba(28, 31, 43, 1)),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232093aa' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.8;
+  }
+  
+  /* Main content area */
+  .home-page > *:not(nav):not(footer) {
+    flex: 1;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  /* Space for the fixed navigation bar */
+  .home-page > .navigation-bar + * {
+    margin-top: 70px; /* Adjust based on your navbar height */
+  }
+  
+  /* Ensure the footer stays at the bottom */
+  .home-page > .app-footer {
+    margin-top: auto;
+  }
+  
+  /* Add smooth scrolling */
+  .home-page {
+    scroll-behavior: smooth;
+  }
+  
+  /* Add a scroll to top button (optional - you can add this to your JSX) */
+  .scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--ec-color-blue3);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .scroll-to-top:hover {
+    background: var(--ec-color-blue1);
+    transform: translateY(-3px);
+  }
+  
+  /* Add spacing between main components */
+  .home-page .welcome-banner + .templates-layout {
+    padding-top: 1rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1440px) {
+    .home-page > *:not(nav):not(footer) {
+      max-width: 95%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .home-page > *:not(nav):not(footer) {
+      max-width: 100%;
+    }
+    
+    .home-page > .navigation-bar + * {
+      margin-top: 60px; /* Adjust based on your mobile navbar height */
+    }
+  }
+  
+  /* Add a loading state for the entire page */
+  .home-page.loading {
+    position: relative;
+  }
+  
+  .home-page.loading::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(28, 31, 43, 0.8);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .home-page.loading::before {
+    content: "";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid rgba(33, 147, 170, 0.1);
+    border-top-color: var(--ec-color-blue3);
+    animation: spin 1s linear infinite;
+    z-index: 1001;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }

@@ -1,0 +1,32 @@
+:root{
+  --ec-color-bg1: #252f46;
+  --ec-color-bg2: #1b375c;
+  --ec-color-bg3: #202432;
+  --ec-color-bg4: #4d505b;
+  --ec-color-bg5: #1c1f2b;
+  --ec-color-bg6: #606268;
+  --ec-color-light1: #cdcdcd;
+  --ec-color-light2: #d3d0c3;
+  --ec-color-blue1: #179fcf;
+  --ec-color-blue2: #3e87dc;
+  --ec-color-blue3: #2093aa;
+  --ec-color-green1: #01a84f;
+  --ec-color-yellow1: #ffd70f;
+  --ec-color-orange1: #f98a4b;
+  --ec-color-red1: #f0002f;
+  --ec-color-purple1: #9c7bff;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--ec-color-bg1);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

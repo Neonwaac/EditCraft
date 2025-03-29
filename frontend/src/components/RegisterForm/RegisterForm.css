@@ -1,0 +1,81 @@
+.register-form{
+    width: 20vw;
+    min-width: 420px;
+    height: 100%;
+    background: var(--ec-color-bg3);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+.register-form-logo{
+    width: 200px;
+}
+.register-form-title{
+    width: 100%;
+    font-weight: 600;
+    text-align: center;
+    font-size: 2rem;
+    margin: 1rem 0;
+    color: var(--ec-color-light1);
+    margin-top: 40px;
+}
+.register-form-form{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+.register-form-label{
+    width: 100%;
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    color: var(--ec-color-light1);
+    font-weight: 500;
+    padding: 0px 68px;
+}
+.register-form-input{
+    width: 60%;
+    height: 15px;
+    font-weight: 500;
+    border-radius: 5px;
+    border: 1px solid #33333344;
+    padding: 10px;
+    background: whitesmoke;
+}
+.register-form-button-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.register-form-button{
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 5px;
+    background: var(--ec-color-blue3);
+    color: white;
+    border: none;
+    margin-top: 30px;
+}
+.register-form-button:hover{
+    background: var(--ec-color-blue1);
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+.register-form-have-account{
+    width: 100%;
+    text-align: center;
+    color: var(--ec-color-light1);
+    margin-top: 20px;
+}
+.register-form-have-account-link{
+    color: var(--ec-color-blue3);
+    text-decoration: none;
+}
+.register-form-have-account-link:hover{
+    color: var(--ec-color-blue1);
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
