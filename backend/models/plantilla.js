@@ -10,10 +10,11 @@ class Plantilla{
         this.timestamp = timestamp;
         this.estado = estado;
     }
-    static async crearPlantilla(titulo, descripcion, tipo, creador, descargas, timestamp, estado){
+    static async crearPlantilla(titulo, descripcion, tipo, creador, descargas, estado){
         try {
-            const query = "INSERT INTO plantillas (titulo, descripcion, tipo, creador, descargas, timestamp, estado) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            const result = await db.promise().execute(query, [titulo, descripcion, tipo, creador, descargas, timestamp, estado]);
+            const query = "INSERT INTO plantillas (titulo, descripcion, tipo, creador, descargas, estado) VALUES (?, ?, ?, ?, ?, ?)";
+
+            const result = await db.promise().execute(query, [titulo, descripcion, tipo, creador, descargas, estado]);
             return result[0];
         } catch (error) {
             return error;
@@ -42,10 +43,10 @@ class Plantilla{
             return error;
         }
     }
-    static async actualizarPlantilla(id, titulo, descripcion, tipo, creador, descargas, timestamp, estado){
+    static async actualizarPlantilla(id, titulo, descripcion, tipo, creador, descargas, estado){
         try {
-            const query = "UPDATE plantillas SET titulo = ?, descripcion = ?, tipo = ?, creador = ?, descargas = ?, timestamp = ?, estado = ? WHERE id = ?";
-            const result = await db.promise().execute(query, [titulo, descripcion, tipo, creador, descargas, timestamp, estado, id]);
+            const query = "UPDATE plantillas SET titulo = ?, descripcion = ?, tipo = ?, creador = ?, descargas = ?, estado = ? WHERE id = ?";
+            const result = await db.promise().execute(query, [titulo, descripcion, tipo, creador, descargas, estado, id]);
             return result[0];
         } catch (error) {
             return error;

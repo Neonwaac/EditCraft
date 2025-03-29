@@ -2,8 +2,8 @@ const Plantilla = require('../models/plantilla.js');
 
 exports.crearPlantilla = async (req, res) => {
     try {
-        const {titulo, descripcion, tipo, creador, descargas, timestamp, estado} = req.body;
-        const plantilla = await Plantilla.crearPlantilla(titulo, descripcion, tipo, creador, descargas, timestamp, estado); 
+        const {titulo, descripcion, tipo, creador, descargas, estado} = req.body;
+        const plantilla = await Plantilla.crearPlantilla(titulo, descripcion, tipo, creador, descargas, estado); 
         res.status(201).json(plantilla);
     } catch (error) {
         res.status(400).json("Error al crear la plantilla", error);
@@ -29,8 +29,8 @@ exports.obtenerPlantilla = async (req, res) => {
 exports.actualizarPlantilla = async (req, res) => {
     try {
         const id = req.params.id;
-        const {titulo, descripcion, tipo, creador, descargas, timestamp, estado} = req.body;
-        const plantilla = await Plantilla.actualizarPlantilla(id, titulo, descripcion, tipo, creador, descargas, timestamp, estado); 
+        const {titulo, descripcion, tipo, creador, descargas, estado} = req.body;
+        const plantilla = await Plantilla.actualizarPlantilla(id, titulo, descripcion, tipo, creador, descargas, estado); 
         res.status(201).json(plantilla);
     } catch (error) {
         res.status(400).json("Error al actualizar la plantilla", error);

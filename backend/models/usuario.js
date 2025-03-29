@@ -38,6 +38,16 @@ class Usuario{
             throw new Error(error);
         }
     }
+    static async obtenerUsuarioPorId(id){
+        try {
+            const query = "SELECT * FROM usuarios WHERE id = ?";
+            const result = await db.promise().execute(query, [id]);
+            console.log(result[0][0])
+            return result[0][0];
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
 }
 
 module.exports = Usuario;

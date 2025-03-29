@@ -19,3 +19,12 @@ exports.iniciarSesion = async (req, res) => {
         res.status(400).json("Error al iniciar sesión", error);
     }
 }
+exports.obtenerUsuarioPorId = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const usuario = await Usuario.obtenerUsuarioPorId(id);
+        res.status(200).json(usuario);
+    } catch (error) {
+        res.status(400).json("Error al obtener el usuario", error);
+    }
+}
