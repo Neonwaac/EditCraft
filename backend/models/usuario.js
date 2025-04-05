@@ -7,16 +7,53 @@ class Usuario{
         this.username = username;
         this.password = password;
     }
-    static async crearUsuario(correo, username, password){
-        try{
+    static async crearUsuario(correo, username, password) {
+        try {
+            const esSegura = this.validarPassword(password);
+            if (!esSegura) {
+                throw new Error("Asegurate de que tu contraseña tenga al menos 8 caracteres, una mayúscula, un número y un carácter especial.");
+            }
+            const existeUsuario = await this.obtenerUsuarioPorUsername(username);
+            if (existeUsuario) {
+                throw new Error("El nombre de usuario ya existe, intenta con otro.");
+            }
+            const existeCorreo = await this.obtenerUsuarioPorCorreo(correo);
+            if (existeCorreo) {
+                throw new Error("El correo ya está registrado, intenta con otro.");
+            } 
             const query = `INSERT INTO usuarios (correo, username, password) VALUES (?, ?, ?)`;
             const salt = await bcrypt.genSalt(10);
             const passwordEncriptada = await bcrypt.hash(password, salt);
             const [result] = await db.promise().execute(query, [correo, username, passwordEncriptada]);
             return { id: result.insertId, correo, username };
-        }catch (error) {
+        } catch (error) {
             throw new Error(`Error al insertar usuario: ${error.message}`);
         }
+    }
+    static async obtenerUsuarioPorUsername(username) {
+        try {
+            const query = "SELECT * FROM usuarios WHERE username = ?";
+            const [result] = await db.promise().execute(query, [username]);
+            return result.length > 0;
+        } catch (error) {
+            throw new Error(`Error al obtener usuario por username: ${error.message}`);
+        }
+    }
+    static async obtenerUsuarioPorCorreo(correo) {
+        try {
+            const query = "SELECT * FROM usuarios WHERE correo = ?";
+            const [result] = await db.promise().execute(query, [correo]);
+            return result.length > 0;
+        } catch (error) {
+            throw new Error(`Error al obtener usuario por correo: ${error.message}`);
+        }
+    }
+    static validarPassword(password) {
+        const tieneMayuscula = /[A-Z]/.test(password);
+        const tieneNumero = /[0-9]/.test(password);
+        const tieneEspecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+        const tieneLongitud = password.length >= 8;
+        return tieneMayuscula && tieneNumero && tieneEspecial && tieneLongitud;
     }
     static generarToken(id, username, rol) {
         return jwt.sign(

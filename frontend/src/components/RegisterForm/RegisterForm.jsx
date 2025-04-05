@@ -24,8 +24,8 @@ function RegisterForm() {
       } catch (error) {
         Swal.fire({
           icon: "error",
-          title: "Error al iniciar sesión",
-          text: "Usuario o contraseña incorrectos",
+          title: "Error al registrarse",
+          text: error.response.data.error || "Error desconocido",
         });
       }
     };

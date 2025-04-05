@@ -98,7 +98,7 @@ function NavigationBar() {
             <Link to="/home" className="navigation-bar-link">Inicio</Link>
             <Link to="/templates" className="navigation-bar-link">Plantillas</Link>
             <Link to="/about" className="navigation-bar-link">Acerca de</Link>
-            <Link to="/dashboard" className="navigation-bar-link">Mi perfil</Link>
+            <Link to="/dashboard" className="navigation-bar-link" onClick={(e) => localStorage.removeItem("token")}>Mi perfil</Link>
         </div>
     </section>
     )

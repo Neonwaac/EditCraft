@@ -21,7 +21,7 @@ function LoginForm() {
           Swal.fire({
             icon: "error",
             title: "Error al iniciar sesión",
-            text: error,
+            text: error.response.data.error || "Error desconocido",
           });
         }
     }
