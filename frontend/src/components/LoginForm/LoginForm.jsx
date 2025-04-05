@@ -3,6 +3,7 @@ import LogoImage from "../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import './LoginForm.css';
 import axios from "axios";
+import Swal from "sweetalert2";
 function LoginForm() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -10,15 +11,18 @@ function LoginForm() {
     const iniciarSesion = async(e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8007/login", {username, password});
-            if(response.data!="Contraseña incorrecta"){
-                localStorage.setItem("LoggedUserId", response.data.id);
-                localStorage.setItem("LoggedUserToken", response.data.token);
-                navigate("/");
-            }else{
-                alert("Contraseña incorrecta");
-            }
+          const response = await axios.post(
+            "http://localhost:8077/login",
+            { username, password }
+          );
+          localStorage.setItem("token", response.data.token);
+          navigate("/");
         } catch (error) {
+          Swal.fire({
+            icon: "error",
+            title: "Error al iniciar sesión",
+            text: error,
+          });
         }
     }
     return (

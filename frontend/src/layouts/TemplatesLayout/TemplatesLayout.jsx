@@ -13,7 +13,7 @@ function TemplatesLayout() {
     useEffect(() => {
       const fetchTemplates = async () => {
         try {
-          const response = await axios.get("http://localhost:8007/plantillas");
+          const response = await axios.get("http://localhost:8077/plantillas");
           setTemplates(response.data);
         } catch (error) {
           console.log(error);

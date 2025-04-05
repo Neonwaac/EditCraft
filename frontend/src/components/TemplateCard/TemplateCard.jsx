@@ -27,7 +27,7 @@ function TemplateCard({ id, titulo, descripcion, tipo, creador, descargas, times
     }).then(async (result) => { // Asegúrate de usar `async` aquí
       if (result.isConfirmed) {
         try {
-          await axios.delete(`http://localhost:8007/plantillas/${id}`);
+          await axios.delete(`http://localhost:8077/plantillas/${id}`);
           Swal.fire({
             title: "Eliminado!",
             text: "La plantilla ha sido eliminada.",

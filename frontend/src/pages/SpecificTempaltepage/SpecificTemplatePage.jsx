@@ -14,7 +14,7 @@ function SpecificTemplatePage() {
   useEffect(() => {
     const fetchTemplate = async () => {
       try {
-        const response = await axios.get(`http://localhost:8007/plantillas/${id}`);
+        const response = await axios.get(`http://localhost:8077/plantillas/${id}`);
         if (response.status === 200) {
           setTemplate(response.data[0]);
         }
