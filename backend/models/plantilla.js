@@ -1,65 +1,127 @@
-const db = require('../db/db.js')
+const db = require("../db/db");
+const fs = require("fs");
+const path = require("path");
 
-class Plantilla{
-    constructor(titulo, descripcion, tipo, creador, descargas, timestamp, estado){
+class Plantilla {
+    constructor(id, titulo, foto, url) {
+        this.id = id;
         this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.tipo = tipo;
-        this.creador = creador;
-        this.descargas = descargas;
-        this.timestamp = timestamp;
-        this.estado = estado;
+        this.foto = foto;
+        this.url = url;
     }
-    static async crearPlantilla(titulo, descripcion, tipo, creador, descargas, estado){
-        try {
-            const query = "INSERT INTO plantillas (titulo, descripcion, tipo, creador, descargas, estado) VALUES (?, ?, ?, ?, ?, ?)";
 
-            const result = await db.promise().execute(query, [titulo, descripcion, tipo, creador, descargas, estado]);
-            return result[0];
+    static async obtenerPlantillas() {
+        try {
+            const query = "SELECT * FROM plantilla ORDER BY timestamp DESC";
+            const [rows] = await db.promise().execute(query);
+            return rows;
         } catch (error) {
-            return error;
+            throw new Error('Error al obtener las plantillas: ' + error.message);
         }
     }
-    static async obtenerPlantillas(){
+
+    static async obtenerPlantillaPorId(id) {
         try {
-            const query = `SELECT P.id, P.titulo, P.descripcion, T.nombre AS tipo, U.username AS creador, 
-            P.descargas, P.timestamp, P.estado FROM plantillas AS P
-            INNER JOIN tipos as T ON P.tipo = T.id
-            INNER JOIN usuarios as U ON P.creador = U.id
-            ORDER BY P.timestamp DESC
-            ` ;
-            const result = await db.promise().execute(query);
-            return result[0];
+            const query = "SELECT * FROM plantilla WHERE id = ?";
+            const [rows] = await db.promise().execute(query, [id]);
+            return rows[0];
         } catch (error) {
-            return error;
+            throw new Error('Error al obtener la plantilla por ID: ' + error.message);
         }
     }
-    static async obtenerPlantilla(id){
+
+    static async guardarFoto(id, titulo, foto) {
         try {
-            const query = "SELECT * FROM plantillas WHERE id = ?";
-            const result = await db.promise().execute(query, [id]);
-            return result[0];
+            const imageDir = path.join(__dirname, "../uploads/images/");
+            if (!fs.existsSync(imageDir)) {
+                fs.mkdirSync(imageDir, { recursive: true });
+            }
+
+            const ext = path.extname(foto.originalname);
+            const safeTitulo = titulo.replace(/\s+/g, "_").toLowerCase();
+            const uniqueName = `plantilla${id}_${safeTitulo}${ext}`;
+            const imagePath = path.join(imageDir, uniqueName);
+
+            // Eliminar imágenes anteriores del mismo id
+            const files = fs.readdirSync(imageDir);
+            const prefix = `plantilla${id}_`;
+            files.forEach(file => {
+                if (file.startsWith(prefix)) {
+                    fs.unlinkSync(path.join(imageDir, file));
+                }
+            });
+
+            fs.writeFileSync(imagePath, foto.buffer);
+            return "http://localhost:8077/uploads/images/"+uniqueName;
         } catch (error) {
-            return error;
+            throw new Error(`Error al guardar la imagen: ${error.message}`);
         }
     }
-    static async actualizarPlantilla(id, titulo, descripcion, tipo, creador, descargas, estado){
+
+    static async crearPlantilla(titulo, url, foto) {
         try {
-            const query = "UPDATE plantillas SET titulo = ?, descripcion = ?, tipo = ?, creador = ?, descargas = ?, estado = ? WHERE id = ?";
-            const result = await db.promise().execute(query, [titulo, descripcion, tipo, creador, descargas, estado, id]);
-            return result[0];
+            if (!foto) throw new Error('No se subió ninguna foto');
+
+            // Insertar para obtener ID
+            const insertQuery = "INSERT INTO plantilla (titulo, foto, url) VALUES (?, '', ?)";
+            const [result] = await db.promise().execute(insertQuery, [titulo, url]);
+            const id = result.insertId;
+
+            // Guardar foto y actualizar registro
+            const nombreArchivo = await Plantilla.guardarFoto(id, titulo, foto);
+            const updateQuery = "UPDATE plantilla SET foto = ? WHERE id = ?";
+            await db.promise().execute(updateQuery, [nombreArchivo, id]);
+
+            return { id, titulo, foto: nombreArchivo, url };
         } catch (error) {
-            return error;
+            throw new Error('Error al crear la plantilla: ' + error.message);
         }
     }
-    static async eliminarPlantilla(id){
+
+static async actualizarPlantilla(id, titulo, url, foto) {
+    try {
+        let nombreArchivo;
+        if (foto) {
+            nombreArchivo = await Plantilla.guardarFoto(id, titulo, foto);
+        }
+        const query =  "UPDATE plantilla SET titulo = ?, url = ? WHERE id = ?";
+
+        const params = [titulo, url, id];
+
+        const [result] = await db.promise().execute(query, params); // ✅ aquí la corrección
+
+        if (result.affectedRows === 0) return null;
+
+        return { id, titulo, url, foto: nombreArchivo };
+    } catch (error) {
+        throw new Error('Error al actualizar la plantilla: ' + error.message);
+    }
+}
+
+
+    static async eliminarPlantilla(id) {
         try {
-            const query = "DELETE FROM plantillas WHERE id = ?";
-            const result = await db.promise().execute(query, [id]);
-            return result[0];
+            // Eliminar imagen física
+            const query = "SELECT foto FROM plantilla WHERE id = ?";
+            const [rows] = await db.promise().execute(query, [id]);
+            if (rows.length === 0) return null;
+
+            const imageDir = path.join(__dirname, "../uploads/images/");
+            const files = fs.readdirSync(imageDir);
+            const prefix = `plantilla${id}_`;
+            files.forEach(file => {
+                if (file.startsWith(prefix)) {
+                    fs.unlinkSync(path.join(imageDir, file));
+                }
+            });
+
+            const deleteQuery = "DELETE FROM plantilla WHERE id = ?";
+            await db.promise().execute(deleteQuery, [id]);
+            return true;
         } catch (error) {
-            return error;
+            throw new Error('Error al eliminar la plantilla: ' + error.message);
         }
     }
 }
+
 module.exports = Plantilla;
