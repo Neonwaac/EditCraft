@@ -1,158 +1,28 @@
-.templates-layout {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1.5rem;
-    padding: 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    position: relative;
-  }
-  
-  /* Add a subtle background pattern */
-  .templates-layout::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-      radial-gradient(circle at 25% 25%, rgba(33, 147, 170, 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 75% 75%, rgba(33, 147, 170, 0.03) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: -1;
-  }
-  
-  /* Add a loading state */
-  .templates-layout.loading {
-    min-height: 400px;
-  }
-  
-  .templates-layout.loading::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 3px solid rgba(33, 147, 170, 0.1);
-    border-top-color: var(--ec-color-blue3);
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    to {
-      transform: translate(-50%, -50%) rotate(360deg);
-    }
-  }
-  
-  /* Empty state */
-  .templates-layout:empty {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 400px;
-  }
-  
-  .templates-layout:empty::after {
-    content: "No se encontraron plantillas";
-    color: var(--ec-color-light1);
-    opacity: 0.6;
-    font-size: 1.2rem;
-  }
-  
-  /* Add a staggered animation for cards */
-  .templates-layout > * {
-    animation: fadeInUp 0.5s ease-out forwards;
-    opacity: 0;
-  }
-  
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Apply staggered delay to each card */
-  .templates-layout > *:nth-child(1) { animation-delay: 0.1s; }
-  .templates-layout > *:nth-child(2) { animation-delay: 0.2s; }
-  .templates-layout > *:nth-child(3) { animation-delay: 0.3s; }
-  .templates-layout > *:nth-child(4) { animation-delay: 0.4s; }
-  .templates-layout > *:nth-child(5) { animation-delay: 0.5s; }
-  .templates-layout > *:nth-child(6) { animation-delay: 0.6s; }
-  .templates-layout > *:nth-child(n+7) { animation-delay: 0.7s; }
-  
-  /* Responsive adjustments */
-  @media (max-width: 1200px) {
-    .templates-layout {
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      padding: 1.5rem;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .templates-layout {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1.25rem;
-      padding: 1.25rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .templates-layout {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      padding: 1rem;
-    }
-  }
-  
-  /* Add a subtle hover effect to the entire grid when interacting */
-  .templates-layout:hover > *:not(:hover) {
-    opacity: 0.85;
-    transform: scale(0.98);
-    transition: all 0.3s ease;
-  }
-  .templates-layout-create-button{
-    border: none;
-    font-size: 20px;
-    background: linear-gradient(to right, var(--ec-color-blue3), var(--ec-color-blue1));
-    color: var(--ec-color-light1);
-    padding: 10px 20px;
-    text-align: center;
-    font-weight: 600;
-    border-radius: 10px;
-    cursor: pointer;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    margin-bottom: 1.5rem;
-    padding: 1.25rem;
-    align-items: center;
-    justify-content: center;
-  }
-  .templates-layout-create-button::after {
-    content: "";
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin-left: 8px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-  }
+.abrir-modal-button {
+  background: linear-gradient(to right, var(--ec-color-blue3), var(--ec-color-blue1));
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(33, 147, 170, 0.3);
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
-  .templates-layout-create-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(23, 159, 207, 0.3);
-  }
+.abrir-modal-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(33, 147, 170, 0.5);
+}
+
+.abrir-modal-button:active {
+  transform: translateY(1px);
+}

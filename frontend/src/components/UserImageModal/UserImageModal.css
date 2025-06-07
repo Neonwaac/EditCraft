@@ -1,0 +1,191 @@
+.edit-user-photo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(28, 31, 43, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.edit-user-photo-modal-content {
+  background: var(--ec-color-bg3);
+  width: 90%;
+  max-width: 500px;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.edit-user-photo-modal-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, var(--ec-color-blue3), var(--ec-color-blue1));
+  border-radius: 12px 12px 0 0;
+}
+
+.edit-user-photo-modal-title {
+  color: var(--ec-color-light1);
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: -0.5px;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.edit-user-photo-modal-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.edit-user-photo-modal-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.edit-user-photo-modal-preview-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.edit-user-photo-modal-input-image {
+  display: none;
+}
+
+.edit-user-photo-modal-label-image {
+  background: rgba(33, 147, 170, 0.1);
+  color: var(--ec-color-blue1);
+  border: 1px solid rgba(33, 147, 170, 0.2);
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.edit-user-photo-modal-label-image:hover {
+  background: rgba(33, 147, 170, 0.2);
+  color: white;
+}
+
+.edit-user-photo-modal-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.edit-user-photo-modal-button,
+.edit-user-photo-modal-button-close {
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  min-width: 120px;
+}
+
+.edit-user-photo-modal-button {
+  background: linear-gradient(to right, var(--ec-color-blue3), var(--ec-color-blue1));
+  color: white;
+  box-shadow: 0 4px 12px rgba(33, 147, 170, 0.3);
+}
+
+.edit-user-photo-modal-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(33, 147, 170, 0.4);
+}
+
+.edit-user-photo-modal-button-close {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ec-color-light1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.edit-user-photo-modal-button-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+@media (max-width: 768px) {
+  .profile-page-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .profile-page-photo {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .profile-page-username {
+    font-size: 1.5rem;
+  }
+  
+  .edit-user-photo-modal-preview-image {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .abrir-modal-button {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-page-container {
+    padding: 1rem;
+  }
+  
+  .profile-page-photo {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .edit-user-photo-modal-buttons {
+    flex-direction: column;
+  }
+  
+  .edit-user-photo-modal-button,
+  .edit-user-photo-modal-button-close {
+    width: 100%;
+  }
+  
+  .profile-page-save-username-button,
+  .profile-page-cancel-username-button {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+  
+  .abrir-modal-button {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+}

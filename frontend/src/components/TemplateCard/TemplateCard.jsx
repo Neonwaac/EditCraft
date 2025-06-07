@@ -1,79 +1,79 @@
-import React from "react";
-import "./TemplateCard.css";
-import { formatDistanceToNow } from "date-fns";
-import { es } from "date-fns/locale";
-import axios from "axios";
-import Swal from "sweetalert2"
+import React, { useState } from "react";
+import './TemplateCard.css';
+import { FaDownload } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import EditTemplateModal from "../EditTemplateModal/EditTemplateModal"; // importa el modal
 
-function TemplateCard({ id, titulo, descripcion, tipo, creador, descargas, timestamp, estado, onEdit }) {
-  const navigate = useNavigate();
-  const timeAgo = formatDistanceToNow(new Date(timestamp), {
-    addSuffix: true,
-    locale: es,
-  });
+function TemplateCard({ id, titulo, foto, url }) {
+    const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
 
-  const deleteTemplate = async (e) => {
-    e.preventDefault();
-    Swal.fire({
-      title: "¿Estás seguro de eliminar esta plantilla?",
-      text: "No podrás revertir este cambio!",
-      icon: "warning",
-      showCancelButton: true,
-      cancelButtonText: "Cancelar",
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, eliminar",
-    }).then(async (result) => { // Asegúrate de usar `async` aquí
-      if (result.isConfirmed) {
+    const descargarImagen = () => {
+        const link = document.createElement('a');
+        link.href = foto;
+        link.download = titulo || 'plantilla';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    const viewTemplate = () => {
+        navigate("/template/" + id);
+    };
+
+    const deleteTemplate = async () => {
         try {
-          await axios.delete(`http://localhost:8077/plantillas/${id}`);
-          Swal.fire({
-            title: "Eliminado!",
-            text: "La plantilla ha sido eliminada.",
-            icon: "success",
-          });
-          window.location.reload(true);
+            await axios.delete(`http://localhost:8077/plantillas/${id}`);
+            alert(`Plantilla con ID: ${id} eliminada`);
         } catch (error) {
-          Swal.fire({
-            icon: "error",
-            title: "Error al eliminar la plantilla",
-            text: "Verifica el servidor o la BD",
-          });
+            console.error("Error al eliminar la plantilla:", error);
+            alert("Hubo un error al eliminar la plantilla");
         }
-      }
-    });
-  };
-  
+    };
 
-  const getTemplate = async (e) => {
-    e.preventDefault();
-    navigate(`/template/${id}`);
-  };
+    const editTemplate = () => {
+        setShowModal(true);
+    };
 
-  return (
-    <div className="template-card">
-      <div className="template-card-header">
-        <span className="template-card-type">{tipo}</span>
-        <span className={`template-card-estado ${estado}`}>{estado}</span>
-      </div>
+    return (
+        <>
+            <section className="template-card">
+                <img
+                    className="template-card-photo"
+                    src={foto}
+                    alt={titulo}
+                    onClick={viewTemplate}
+                />
+                <h1 className="template-card-title">{titulo}</h1>
+                <FaDownload
+                    className="template-card-download"
+                    onClick={descargarImagen}
+                />
+                <a
+                    className="template-card-link"
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Visitar plantilla
+                </a>
+                <button className="template-card-button-delete" onClick={deleteTemplate}>Eliminar</button>
+                <button className="template-card-button-edit" onClick={editTemplate}>Editar</button>
+            </section>
 
-      <div className="template-card-body">
-        <h3 className="template-card-title" onClick={getTemplate}>{titulo}</h3>
-        <p className="template-card-descripcion">{descripcion}</p>
-      </div>
-
-      <div className="template-card-footer">
-        <span className="template-card-creador">Por: {creador}</span>
-        <span className="template-card-descargas">{descargas} descargas</span>
-        <span className="template-card-timestamp">{timeAgo}</span>
-      </div>
-      <div className="template-card-actions">
-        <button className="template-card-edit-button" onClick={onEdit}>Editar</button>
-        <button className="template-card-delete-button" onClick={deleteTemplate}>Eliminar</button>
-      </div>
-    </div>
-  );
+            {showModal && (
+                <EditTemplateModal
+                    id={id}
+                    tituloInicial={titulo}
+                    urlInicial={url}
+                    onClose={() => setShowModal(false)}
+                    onSuccess={() => window.location.reload()}
+                />
+            )}
+        </>
+    );
 }
 
 export default TemplateCard;
+
